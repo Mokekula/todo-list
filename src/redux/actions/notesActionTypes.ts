@@ -1,0 +1,6 @@
+export const GET_NOTES_REQUEST = "GET_NOTES_REQUEST";
+export const GET_NOTES_SUCCESS = "GET_NOTES_SUCCESS";
+export const GET_NOTES_ERROR = "GET_NOTES_ERROR";
+export const ADD_NEW_NOTE = 'ADD_NEW_NOTE';
+export const CHANGE_DONE_NOTE = 'CHANGE_DONE_NOTE';
+export const DELETE_NOTE = 'DELETE_NOTE';

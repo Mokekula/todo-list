@@ -1,14 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { TextField } from "@material-ui/core";
 import useStyles from "./AddTodoForm.styles";
-import Context from "../../context";
+import { addNewNote } from "redux/actions/notesActions";
+const { useDispatch } = require('react-redux');
 
-export const AddTodoForm = () => {
+export const AddTodoForm: React.FC = () => {
   const classes = useStyles();
-  const { notes, setNotes } = useContext(Context);
-  const [newNoteTitle, setNewNoteTitle] = useState("");
+  const [newNoteTitle, setNewNoteTitle] = useState<string>('');
+  const dispatch = useDispatch();
 
-  const handleNewNote = (e) => {
+  const handleNewNoteTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault();
+
+    setNewNoteTitle(e.target.value)
+  }
+
+  const handleNewNote = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     if (newNoteTitle) {
@@ -17,9 +24,8 @@ export const AddTodoForm = () => {
         title: newNoteTitle,
         done: false,
       };
-
-      setNotes([...notes, createdNewNote]);
-
+      
+      dispatch(addNewNote(createdNewNote));
       setNewNoteTitle("");
     }
   };
@@ -34,7 +40,7 @@ export const AddTodoForm = () => {
         size="small"
         fullWidth={true}
         value={newNoteTitle}
-        onChange={(e) => setNewNoteTitle(e.target.value)}
+        onChange={handleNewNoteTitle}
       />
     </form>
   );
